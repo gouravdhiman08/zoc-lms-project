@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Agriculture with Arjun',
+      title: 'Agriculture wth Arjun',
       initialRoute: AppRoutes.splash,
       getPages: AppRoutes.getPages,
     );
