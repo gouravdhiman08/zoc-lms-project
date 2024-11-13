@@ -1,6 +1,8 @@
 // lib/core/routes/routes.dart
 
 import 'package:get/get.dart';
+import 'package:zoc_lms_project/core/global/bottombar/bottombar.dart';
+import 'package:zoc_lms_project/features/authentication/login/login.dart';
 import 'package:zoc_lms_project/features/home/home.dart';
 import 'package:zoc_lms_project/features/authentication/signup/signup.dart';
 import 'package:zoc_lms_project/features/splash/splash.dart';
@@ -18,7 +20,7 @@ class AppRoutes {
     ),
     GetPage(
       name: signup,
-      page: () => const Signup(), // Reference to Signup Screen
+      page: () =>  BottomNavBarExample(), // Reference to Signup Screen
     ),
     GetPage(
       name: home,
