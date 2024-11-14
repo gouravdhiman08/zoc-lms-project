@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:zoc_lms_project/core/utils/colors.dart';
 
 class SliderController extends GetxController {
   var isLoading = true.obs;
@@ -12,9 +15,9 @@ class SliderController extends GetxController {
     // Simulating a network request for sliders
     Future.delayed(Duration(seconds: 2), () {
       sliders.addAll([
-        'https://via.placeholder.com/600x300?text=Slider+1',
-        'https://via.placeholder.com/600x300?text=Slider+2',
-        'https://via.placeholder.com/600x300?text=Slider+3',
+        'https://plus.unsplash.com/premium_photo-1674641194949-e154719cdc02?fm=jpg&q=60&w=3000',
+        'https://plus.unsplash.com/premium_photo-1674641194949-e154719cdc02?fm=jpg&q=60&w=3000',
+        'https://plus.unsplash.com/premium_photo-1674641194949-e154719cdc02?fm=jpg&q=60&w=3000',
       ]);
       isLoading.value = false;
     });
@@ -30,43 +33,53 @@ class SliderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sliderController = Get.put(SliderController()); // Initialize SliderController
-
+    final sliderController = Get.put(SliderController());
     final size = MediaQuery.of(context).size;
 
     return Container(
-      width: size.width * .90,
+      width: size.width * 0.90,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(.1),
-            blurRadius: 15,
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 12,
           ),
         ],
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Obx(() {
+          // Ensure a fixed height for the container, even during loading
+          double containerHeight = 150;
+
           // Check if data is still loading
           if (sliderController.isLoading.value) {
-            return Center(child: CircularProgressIndicator());
+            return Center(
+              child: SizedBox(
+                height: containerHeight,
+                child: SpinKitFadingCircle(
+                  // Modern loading spinner
+                  color: AppColors.primary, // Set color to your theme
+                  size: 50.0, // Adjust size of the spinner
+                ),
+              ),
+            );
           }
 
-          // If there are no sliders available, show fallback content
+          // If no sliders available, show fallback content
           if (sliderController.sliders.isEmpty) {
             return Column(
               children: [
                 Container(
-                  width: size.width * .90,
-                  height: 200, // Height for fallback image
+                  width: size.width * 0.90,
+                  height: containerHeight,
                   decoration: BoxDecoration(
                     color: Colors.grey.shade300,
                     borderRadius: BorderRadius.circular(15),
                     image: DecorationImage(
-                      image: NetworkImage(
-                          'https://via.placeholder.com/600x300?text=No+Data'), // Fallback image URL
+                      image: NetworkImage('https://via.placeholder.com/300'),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -75,27 +88,43 @@ class SliderSection extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    DotIndicator(isSelected: true), // Show one dot for fallback
+                    DotIndicator(isSelected: true),
                   ],
                 ),
               ],
             );
           }
 
-          // If sliders are available, show the actual slider
+          // When sliders are available, show the carousel
           return Column(
             children: [
-              Container(
-                width: size.width * .90,
-                height: 200, // Height for actual sliders
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
-                  image: DecorationImage(
-                    image: NetworkImage(sliderController.sliders[sliderController.selectedSliderIndex.value]),
-                    fit: BoxFit.cover,
-                  ),
+              CarouselSlider(
+                options: CarouselOptions(
+                  height: containerHeight,
+                  initialPage: sliderController.selectedSliderIndex.value,
+                  onPageChanged: (index, reason) {
+                    sliderController.changeSliderIndex(index);
+                  },
+                  enableInfiniteScroll: true,
+                  autoPlay: true,
+                  enlargeCenterPage: true,
+                  viewportFraction: 1.0,
                 ),
+                items: sliderController.sliders.map((sliderImage) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Image.network(
+                          sliderImage,
+                          fit: BoxFit.cover,
+                          width: size.width * 0.90,
+                          height: containerHeight,
+                        ),
+                      );
+                    },
+                  );
+                }).toList(),
               ),
               const SizedBox(height: 10),
               Row(
@@ -104,7 +133,10 @@ class SliderSection extends StatelessWidget {
                   sliderController.sliders.length,
                   (index) => GestureDetector(
                     onTap: () => sliderController.changeSliderIndex(index),
-                    child: DotIndicator(isSelected: sliderController.selectedSliderIndex.value == index),
+                    child: DotIndicator(
+                        isSelected:
+                            sliderController.selectedSliderIndex.value ==
+                                index),
                   ),
                 ),
               ),
@@ -128,7 +160,8 @@ class DotIndicator extends StatelessWidget {
       width: 10,
       height: 10,
       decoration: BoxDecoration(
-        color: isSelected ? Colors.blue : Colors.blue.withOpacity(0.2),
+        color:
+            isSelected ? AppColors.primary : AppColors.primary.withOpacity(0.4),
         shape: BoxShape.circle,
       ),
     );

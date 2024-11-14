@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Import for SystemChrome
+import 'package:zoc_lms_project/core/utils/colors.dart';
 import 'package:zoc_lms_project/features/home/home.dart';
 import 'package:zoc_lms_project/features/home/widgets/home_app_bar.dart';
+import 'package:zoc_lms_project/features/mycourse/mycourse.dart';
 
 class BottomNavBarExample extends StatefulWidget {
   @override
@@ -14,8 +17,21 @@ class _BottomNavBarExampleState extends State<BottomNavBarExample> {
   // List of pages for navigation
   final List<Widget> _pages = [
     Home(),
+    Mycourse(),
     ProfileScreen(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    // Set the status bar style to black with light icons
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.black, // Set status bar color to black
+        statusBarIconBrightness: Brightness.light, // Set icons to light color
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +47,17 @@ class _BottomNavBarExampleState extends State<BottomNavBarExample> {
             _currentIndex = index;
           });
         },
+        selectedItemColor: AppColors.primary, // Use custom primary color for selected item
+        unselectedItemColor: AppColors.black, // Use custom black color for unselected items
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.search_sharp),
-          //   label: 'Course',
-          // ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.library_books),
+            label: 'Course',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_box),
             label: 'Profile',
