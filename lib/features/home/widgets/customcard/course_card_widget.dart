@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:zoc_lms_project/core/utils/colors.dart';
+import 'package:zoc_lms_project/features/checkout/checkout.dart';
 
 class CourseCardWidget extends StatelessWidget {
   final Map<String, dynamic> course;
@@ -21,7 +23,8 @@ class CourseCardWidget extends StatelessWidget {
         ],
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.min,  // Ensures Column takes only needed space
+        mainAxisSize:
+            MainAxisSize.min, // Ensures Column takes only needed space
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Course Image
@@ -35,10 +38,12 @@ class CourseCardWidget extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,  // Avoids taking extra vertical space
+              mainAxisSize:
+                  MainAxisSize.min, // Avoids taking extra vertical space
               children: [
                 Text(
                   course['title'].toString(),
@@ -84,7 +89,14 @@ class CourseCardWidget extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Implement the checkout functionality
+                      Get.to(CheckoutScreen(
+                        imageUrl:'https://plus.unsplash.com/premium_photo-1674641194949-e154719cdc02?fm=jpg&q=60&w=3000',
+                        title: 'Flutter for Beginners',
+                        description: 'Learn Flutter from scratch',
+                        cost: 199.99,
+                        createdBy: 'John Doe',
+                        createdAt: DateTime.now(),
+                      ));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,

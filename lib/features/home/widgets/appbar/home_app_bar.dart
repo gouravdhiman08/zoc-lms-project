@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zoc_lms_project/features/ProfileScreen/ProfileScreen.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({super.key});
@@ -77,15 +78,6 @@ class HomeAppBar extends StatelessWidget {
   }
 }
 
-class ProfileScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Profile")),
-      body: Center(child: Text("Profile Screen")),
-    );
-  }
-}
 
 // Simulating AuthHelper to get user name
 class AuthHelper {

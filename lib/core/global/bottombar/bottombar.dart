@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Import for SystemChrome
 import 'package:zoc_lms_project/core/utils/colors.dart';
+import 'package:zoc_lms_project/features/ProfileScreen/ProfileScreen.dart';
 import 'package:zoc_lms_project/features/home/home.dart';
-import 'package:zoc_lms_project/features/home/widgets/home_app_bar.dart';
 import 'package:zoc_lms_project/features/mycourse/mycourse.dart';
 
 class BottomNavBarExample extends StatefulWidget {
@@ -19,6 +19,7 @@ class _BottomNavBarExampleState extends State<BottomNavBarExample> {
     Home(),
     Mycourse(),
     ProfileScreen(),
+
   ];
 
   @override

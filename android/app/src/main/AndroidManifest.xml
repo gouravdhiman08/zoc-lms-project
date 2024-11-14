@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
     <application
         android:label="zoc_lms_project"
         android:name="${applicationName}"

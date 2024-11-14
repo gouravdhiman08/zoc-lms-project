@@ -1,5 +1,3 @@
-// lib/features/home/data/courses.dart
-
 List<Map<String, dynamic>> courses = [
   {
     'title': 'Introduction to Web Development',

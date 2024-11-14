@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:zoc_lms_project/core/data/sample_courses_data.dart';
 import 'package:zoc_lms_project/core/utils/colors.dart';
-import 'package:zoc_lms_project/features/home/widgets/home_app_bar.dart';
-import 'package:zoc_lms_project/features/home/widgets/latest_courses_section.dart';
-import 'package:zoc_lms_project/features/home/widgets/slider_section.dart';
+import 'package:zoc_lms_project/features/home/widgets/appbar/home_app_bar.dart';
+import 'package:zoc_lms_project/features/home/widgets/latestcourse/latest_courses_section.dart';
+import 'package:zoc_lms_project/features/home/widgets/slider/slider_section.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
