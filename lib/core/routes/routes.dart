@@ -29,8 +29,8 @@ class AppRoutes {
     // Signup Screen Route
     GetPage(
       name: signup,
-      // page: () =>  Signup(),
-      page: () => BottomNavBarExample(),
+      page: () =>  Signup(),
+      // page: () => BottomNavBarExample(),
     ),
 
     // Login Screen Route

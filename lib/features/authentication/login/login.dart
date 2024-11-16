@@ -1,12 +1,20 @@
+// lib/features/authentication/login/login.dart
 import 'package:flutter/material.dart';
+import 'package:get/get.dart'; // Import GetX for state management
+import 'package:zoc_lms_project/core/controller/login_controller.dart';
+import 'package:zoc_lms_project/features/authentication/login/widgets/buildPrimaryButton.dart';
+import 'package:zoc_lms_project/features/authentication/login/widgets/buildTextField.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Initialize the LoginController using GetX
+    final loginController = Get.put(LoginController());
+
     return Scaffold(
-      backgroundColor: Colors.grey[100], // Soft background color
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: const Text(
           'Login Screen',
@@ -53,7 +61,8 @@ class Login extends StatelessWidget {
                   child: Column(
                     children: [
                       // Email Field
-                      _buildTextField(
+                      BuildTextField(
+                        controller: loginController.emailController,
                         label: 'Your Email',
                         hint: 'Enter your email',
                         icon: Icons.email,
@@ -68,7 +77,8 @@ class Login extends StatelessWidget {
                       const SizedBox(height: 16),
 
                       // Password Field
-                      _buildTextField(
+                      BuildTextField(
+                        controller: loginController.passwordController,
                         label: 'Password',
                         hint: 'Enter your password',
                         icon: Icons.lock,
@@ -90,7 +100,8 @@ class Login extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
                     onTap: () {
-                      // Handle "Forget Password" action
+                      // Navigate to forgot password screen
+                      Get.toNamed('/forgot-password');
                     },
                     child: const Text(
                       'Forgot password?',
@@ -104,12 +115,20 @@ class Login extends StatelessWidget {
                 const SizedBox(height: 20),
 
                 // Login Button with improved accessibility and padding
-                _buildPrimaryButton(
-                  text: 'Log In',
-                  onPressed: () {
-                    // Implement login functionality here
-                  },
-                ),
+                Obx(() {
+                  return loginController.isLoading.value
+                      ? BuildPrimaryButton(
+                          text: 'Logging In...',
+                          onPressed: () {}, // Disable the button while loading
+                          isLoading: true,  // Handle loading state in button
+                        )
+                      : BuildPrimaryButton(
+                          text: 'Log In',
+                          onPressed: () {
+                            loginController.login(context); // Call the login function
+                          },
+                        );
+                }),
                 const SizedBox(height: 20),
 
                 // Sign Up Prompt
@@ -128,6 +147,7 @@ class Login extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           // Navigate to the sign up screen
+                          Get.toNamed('/sign-up');
                         },
                         child: const Text(
                           "Sign Up",
@@ -144,77 +164,6 @@ class Login extends StatelessWidget {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTextField({
-    required String label,
-    required String hint,
-    required IconData icon,
-    TextInputType keyboardType = TextInputType.text,
-    bool obscureText = false,
-    String? Function(String?)? validator,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Colors.black87,
-            ),
-          ),
-          const SizedBox(height: 8),
-          TextFormField(
-            decoration: InputDecoration(
-              hintText: hint,
-              hintStyle: const TextStyle(fontSize: 14, color: Colors.black45),
-              prefixIcon: Icon(icon, color: Colors.blueAccent),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16.0), // Rounded corners
-                borderSide:
-                    const BorderSide(color: Colors.blueAccent, width: 1),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16.0),
-                borderSide:
-                    const BorderSide(color: Colors.blueAccent, width: 2),
-              ),
-            ),
-            obscureText: obscureText,
-            keyboardType: keyboardType,
-            validator: validator,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPrimaryButton({
-    required String text,
-    required VoidCallback onPressed,
-  }) {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        child: Text(
-          text,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.blueAccent,
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          elevation: 5, // Subtle shadow for depth
         ),
       ),
     );
