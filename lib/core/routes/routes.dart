@@ -23,13 +23,13 @@ class AppRoutes {
     // Splash Screen Route
     GetPage(
       name: splash,
-      page: () => Splash(),
+      page: () => const Splash(),
     ),
 
     // Signup Screen Route
     GetPage(
       name: signup,
-      page: () =>  Signup(),
+      page: () =>  const Signup(),
       // page: () => BottomNavBarExample(),
     ),
 
@@ -42,25 +42,26 @@ class AppRoutes {
     // Home Screen Route
     GetPage(
       name: home,
-      page: () => const Home(),
+      page: () => const BottomNavBarExample(),
     ),
 
     // Course Details Screen Route (You need to create this screen)
     GetPage(
       name: courseDetails,
-      page: () => LatestCoursesSection(courses: courses), // Pass courses data here
+      // page: () => LatestCoursesSection(courses: courses), // Pass courses data here
+      page: () => LatestCoursesSection(),
     ),
 
     // Profile Screen Route (You need to create this screen)
     GetPage(
       name: profile,
-      page: () => ProfileScreen(),
+      page: () => const ProfileScreen(),
     ),
 
-    // Bottom Nav Bar Screen (You already have this setup)
-    GetPage(
-      name: '/bottomBar',
-      page: () => BottomNavBarExample(),
-    ),
+    // // Bottom Nav Bar Screen (You already have this setup)
+    // GetPage(
+    //   name: '/bottomBar',
+    //   page: () => BottomNavBarExample(),
+    // ),
   ];
 }

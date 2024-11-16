@@ -6,6 +6,8 @@ import 'package:zoc_lms_project/features/home/home.dart';
 import 'package:zoc_lms_project/features/mycourse/mycourse.dart';
 
 class BottomNavBarExample extends StatefulWidget {
+  const BottomNavBarExample({super.key});
+
   @override
   _BottomNavBarExampleState createState() => _BottomNavBarExampleState();
 }
@@ -16,9 +18,9 @@ class _BottomNavBarExampleState extends State<BottomNavBarExample> {
 
   // List of pages for navigation
   final List<Widget> _pages = [
-    Home(),
-    Mycourse(),
-    ProfileScreen(),
+    const Home(),
+    const MyCoursesScreen(),
+    const ProfileScreen(),
 
   ];
 
@@ -27,7 +29,7 @@ class _BottomNavBarExampleState extends State<BottomNavBarExample> {
     super.initState();
     // Set the status bar style to black with light icons
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
+      const SystemUiOverlayStyle(
         statusBarColor: Colors.black, // Set status bar color to black
         statusBarIconBrightness: Brightness.light, // Set icons to light color
       ),
@@ -50,7 +52,7 @@ class _BottomNavBarExampleState extends State<BottomNavBarExample> {
         },
         selectedItemColor: AppColors.primary, // Use custom primary color for selected item
         unselectedItemColor: AppColors.black, // Use custom black color for unselected items
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',

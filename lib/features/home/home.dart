@@ -39,8 +39,9 @@ class Home extends StatelessWidget {
                     const HomeAppBar(),
                     const SizedBox(height: 10),
                     const SliderSection(),
-                    LatestCoursesSection(
-                        courses: courses), // Pass the courses list here
+                    // LatestCoursesSection(
+                    //     courses: courses), // Pass the courses list here
+                    LatestCoursesSection()
                   ],
                 ),
               ),

@@ -11,7 +11,7 @@ class BuildTextField extends StatelessWidget {
   final String? Function(String?)? validator;
 
   const BuildTextField({
-    Key? key,
+    super.key,
     required this.controller,
     required this.label,
     required this.hint,
@@ -19,7 +19,7 @@ class BuildTextField extends StatelessWidget {
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
     this.validator,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

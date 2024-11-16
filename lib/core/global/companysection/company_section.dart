@@ -112,7 +112,7 @@ class CompanySection extends StatelessWidget {
               await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => InAppWebViewPage(url: 'https://www.zeroonecreation.com/'),
+                  builder: (context) => const InAppWebViewPage(url: 'https://www.zeroonecreation.com/'),
                 ),
               );
             },

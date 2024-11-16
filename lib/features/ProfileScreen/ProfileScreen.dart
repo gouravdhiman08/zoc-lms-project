@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zoc_lms_project/core/global/companysection/company_section.dart';
+import 'package:zoc_lms_project/core/services/AuthService.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -43,8 +45,8 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           child: const CircleAvatar(
                             radius: 60,
-                            backgroundImage:
-                                AssetImage('assets/images/logo.jpg'), // Use any image here
+                            backgroundImage: AssetImage(
+                                'assets/images/logo.jpg'), // Use any image here
                           ),
                         ),
                       ],
@@ -144,7 +146,7 @@ class ProfileScreen extends StatelessWidget {
             ),
 
             // Company Section
-            CompanySection(),
+            const CompanySection(),
           ],
         ),
       ),
@@ -161,7 +163,9 @@ class ProfileScreen extends StatelessWidget {
       onTap: () async {
         // If this is the logout item, perform logout logic
         if (isLogout) {
-          print('User logged out');
+          await AuthService
+              .logout(); // Clear the session and navigate to login screen
+          print('User logged out successfully.');
         } else {
           // Handle other actions if necessary
           onTap();
@@ -218,6 +222,14 @@ class ProfileScreen extends StatelessWidget {
   Future<String> _getName() async {
     // Simulate a delay like fetching data from a backend or database
     await Future.delayed(const Duration(seconds: 2));
-    return 'John Doe'; // Return a sample name
+
+    // Get SharedPreferences instance
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    // Retrieve the saved user name (if exists), default to empty string if not found
+    String? userName = pref.getString('fullName') ??
+        'Guest'; // Default to 'Guest' if no name is found
+
+    return userName;
   }
 }

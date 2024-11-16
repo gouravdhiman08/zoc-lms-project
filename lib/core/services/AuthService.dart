@@ -1,74 +1,6 @@
-// import 'dart:convert';
-// import 'package:http/http.dart' as http;
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:zoc_lms_project/core/utils/appUrls.dart';
-
-// class AuthService {
-//   // Hardcoded demo credentials for quick testing
-//   static const String demoEmail = "demo@example.com";
-//   static const String demoPassword = "demoPassword";
-
-//   // Login function
-//   static Future<bool> login(String email, String password) async {
-//     final pref = await SharedPreferences.getInstance();
-
-//     // Check for demo credentials
-//     if (email == demoEmail && password == demoPassword) {
-//       pref.setString('token', 'demo_token');
-//       pref.setString('email', demoEmail);
-//       return true; // Return true if demo login is successful
-//     }
-
-//     // Prepare the request body
-//     final Map<String, dynamic> requestData = {
-//       'email': email,
-//       'password': password,
-//     };
-
-//     // Make the login API call
-//     final response = await http.post(
-//       AppUrls.login,
-//       headers: {
-//         'Content-Type': 'application/json', // Set header to application/json
-//       },
-//       body: jsonEncode(requestData),
-//     );
-
-//     if (response.statusCode == 200) {
-//       final responseData = jsonDecode(response.body);
-
-//       // Save user data and token in SharedPreferences
-//       if (responseData['success']) {
-//         pref.setString('token', responseData['token']);
-//         pref.setString('userId', responseData['user']['id']);
-//         pref.setString('fullName', responseData['user']['fullName']);
-//         pref.setString('email', responseData['user']['email']);
-//         pref.setString('phoneNumber', responseData['user']['phoneNumber']);
-//         pref.setString('gender', responseData['user']['gender']);
-//         pref.setBool('isSubscribed', responseData['user']['isSubscribed']);
-//         pref.setBool('isVerified', responseData['user']['isVerified']);
-//         return true;
-//       } else {
-//         // Login failed (show error message if needed)
-//         return false;
-//       }
-//     } else {
-//       // Server error or connection issue
-//       return false;
-//     }
-//   }
-
-//   // Logout function to clear SharedPreferences
-//   static Future<void> logout() async {
-//     final pref = await SharedPreferences.getInstance();
-//     await pref.clear(); // Clear all stored data
-//   }
-// }
-
-
-// Ensure you're importing required dependencies
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 import 'package:zoc_lms_project/core/utils/appUrls.dart';
@@ -78,11 +10,7 @@ class AuthService {
   static const String demoPassword = "demoPassword";
 
   static Future<bool> login(String email, String password) async {
-    // final pref = await SharedPreferences.getInstance();
-
-    // Check for hard-coded demo credentials
     if (email == demoEmail && password == demoPassword) {
-      // pref.setString('token', 'demo_token');
       return true;
     }
 
@@ -93,7 +21,7 @@ class AuthService {
 
     try {
       final response = await http.post(
-AppUrls.login,
+        AppUrls.login,
         headers: {
           'Content-Type': 'application/json',
         },
@@ -102,18 +30,25 @@ AppUrls.login,
 
       if (response.statusCode == 200) {
         final responseBody = jsonDecode(response.body);
-
+        print(responseBody);
         if (responseBody['success']) {
-          // Save user details
-          // pref.setString('token', responseBody['token'] ?? '');
-          // pref.setString('userId', responseBody['user']['id'] ?? '');
-          // pref.setString('fullName', responseBody['user']['fullName'] ?? '');
-          // pref.setString('email', responseBody['user']['email'] ?? '');
-          // pref.setString('phoneNumber', responseBody['user']['phoneNumber'] ?? '');
-          // pref.setString('gender', responseBody['user']['gender'] ?? '');
-          // pref.setBool('isSubscribed', responseBody['user']['isSubscribed'] ?? false);
-          // pref.setBool('isVerified', responseBody['user']['isVerified'] ?? false);
-          
+          // Save the token and user data in SharedPreferences
+          SharedPreferences pref = await SharedPreferences.getInstance();
+
+          // Save the token and user details
+          await pref.setString('token', responseBody['token'] ?? '');
+          await pref.setString('userId', responseBody['user']['id'] ?? '');
+          await pref.setString(
+              'fullName', responseBody['user']['fullName'] ?? '');
+          await pref.setString('email', responseBody['user']['email'] ?? '');
+          await pref.setString(
+              'phoneNumber', responseBody['user']['phoneNumber'] ?? '');
+          await pref.setString('gender', responseBody['user']['gender'] ?? '');
+          await pref.setBool(
+              'isSubscribed', responseBody['user']['isSubscribed'] ?? false);
+          await pref.setBool(
+              'isVerified', responseBody['user']['isVerified'] ?? false);
+
           return true;
         } else {
           return false;
@@ -126,5 +61,30 @@ AppUrls.login,
       print("Error during login: $e");
       return false;
     }
+  }
+
+// FOR LOGOUT
+
+  static Future<void> logout() async {
+    final pref = await SharedPreferences.getInstance();
+
+    // Clear the token and user data from SharedPreferences
+    await pref.remove('token');
+    await pref.remove('userId');
+    await pref.remove('fullName');
+    await pref.remove('email');
+    await pref.remove('phoneNumber');
+    await pref.remove('gender');
+    await pref.remove('isSubscribed');
+    await pref.remove('isVerified');
+
+    // Optionally, make a request to the backend to invalidate the session/token
+    // await http.post(AppUrls.logout, headers: {
+    //   'Authorization': 'Bearer ${pref.getString('token')}',
+    // });
+
+    // After logout, navigate to the login screen
+    Get.offAllNamed(
+        '/login'); // Replace '/login' with the route to your login screen
   }
 }

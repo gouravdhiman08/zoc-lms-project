@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zoc_lms_project/features/ProfileScreen/ProfileScreen.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -21,19 +23,19 @@ class HomeAppBar extends StatelessWidget {
                   builder: (context, snapshot) {
                     // If the data is available, show the full name, otherwise show 'ZOC' by default.
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return CircularProgressIndicator(); // Optional loading indicator
+                      return const CircularProgressIndicator(); // Optional loading indicator
                     }
                     if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                       return Text(
                         'Hi ${snapshot.data},',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 24,
                           color: Colors.white,
                         ),
                       );
                     } else {
-                      return Text(
+                      return const Text(
                         'Hi ZOC,', // Default if no name is available
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -44,7 +46,7 @@ class HomeAppBar extends StatelessWidget {
                     }
                   },
                 ),
-                Text(
+                const Text(
                   "Let's start learning",
                   style: TextStyle(
                     fontWeight: FontWeight.w300,
@@ -57,16 +59,14 @@ class HomeAppBar extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 // Navigate to the profile screen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfileScreen()),
-                );
+                Get.to(ProfileScreen());
               },
-              child: CircleAvatar(
+              child: const CircleAvatar(
                 backgroundColor: Colors.white,
                 radius: 20, // Adjust radius as per your needs
                 child: Icon(
-                  Icons.person, // Replace with an appropriate icon for the avatar
+                  Icons
+                      .person, // Replace with an appropriate icon for the avatar
                   color: Colors.blue, // Change color if needed
                 ),
               ),
@@ -78,12 +78,19 @@ class HomeAppBar extends StatelessWidget {
   }
 }
 
-
 // Simulating AuthHelper to get user name
 class AuthHelper {
   static Future<String?> getName() async {
-    // Simulating a network call or async operation
-    await Future.delayed(Duration(seconds: 2)); // Simulating delay
-    return "John Doe"; // Return the user name or null if not available
+    // Simulate a delay like fetching data from a backend or database
+    await Future.delayed(const Duration(seconds: 2));
+
+    // Get SharedPreferences instance
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    // Retrieve the saved user name (if exists), default to empty string if not found
+    String? userName = pref.getString('fullName') ??
+        'Guest'; // Default to 'Guest' if no name is found
+
+    return userName;
   }
 }

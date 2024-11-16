@@ -13,7 +13,7 @@ class SliderController extends GetxController {
   void onInit() {
     super.onInit();
     // Simulating a network request for sliders
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       sliders.addAll([
         'https://plus.unsplash.com/premium_photo-1674641194949-e154719cdc02?fm=jpg&q=60&w=3000',
         'https://plus.unsplash.com/premium_photo-1674641194949-e154719cdc02?fm=jpg&q=60&w=3000',
@@ -78,14 +78,14 @@ class SliderSection extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.grey.shade300,
                     borderRadius: BorderRadius.circular(15),
-                    image: DecorationImage(
+                    image: const DecorationImage(
                       image: NetworkImage('https://via.placeholder.com/300'),
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
                 const SizedBox(height: 10),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     DotIndicator(isSelected: true),

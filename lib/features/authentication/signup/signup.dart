@@ -184,16 +184,16 @@ class _SignupState extends State<Signup> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        ),
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.blueAccent,
           padding: const EdgeInsets.symmetric(vertical: 15),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
+        ),
+        child: Text(
+          text,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
       ),
     );
