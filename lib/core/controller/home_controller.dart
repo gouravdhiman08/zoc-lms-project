@@ -4,7 +4,6 @@ import 'package:zoc_lms_project/core/models/course_model.dart';
 import 'package:zoc_lms_project/core/models/user_model.dart';
 import 'package:zoc_lms_project/core/services/course_service.dart';
 
-
 class HomeController extends GetxController {
   final UserModel user = UserModel();
   // List<CategoryModel> categories = getCategories;

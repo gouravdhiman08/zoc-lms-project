@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:zoc_lms_project/core/utils/colors.dart';
 
@@ -45,13 +43,11 @@ class CustomButton extends StatelessWidget {
               ),
               Text(
                 buttonTitle,
-               
               )
             ],
           ) : Center(
             child: Text(
               buttonTitle,
-              
             ),
           ),
         ),

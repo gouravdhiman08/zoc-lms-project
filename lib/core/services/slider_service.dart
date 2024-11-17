@@ -13,7 +13,6 @@ class SliderService {
   // Static method to fetch sliders
   static Future<List<Slider>> fetchSliders() async {
     try {
-      // Since `apiUrl` is now non-static, you must create an instance to access it
       final service = SliderService(); // Create instance to access apiUrl
       final response = await http.get(Uri.parse(service.apiUrl));
 

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zoc_lms_project/core/global/companysection/company_section.dart';
 import 'package:zoc_lms_project/core/services/AuthService.dart';
 import 'package:zoc_lms_project/core/utils/colors.dart';
+import 'package:zoc_lms_project/features/ProfileScreen/widgets/personal-Information.dart';
+import 'package:zoc_lms_project/features/ProfileScreen/widgets/settings.dart';
+import 'package:zoc_lms_project/features/mycourse/mycourse.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -19,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        backgroundColor: AppColors.primary, // Primary color
+        backgroundColor: AppColors.primary,
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -29,7 +33,7 @@ class ProfileScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.only(bottom: 32),
               decoration: BoxDecoration(
-                color: Colors.grey[50], // Light off-white color
+                color: Colors.grey[50],
               ),
               child: Column(
                 children: [
@@ -46,19 +50,20 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           child: const CircleAvatar(
                             radius: 60,
-                            backgroundImage: AssetImage(
-                                'assets/images/logo.jpg'), // Use any image here
+                            backgroundImage:
+                                AssetImage('assets/images/logo.jpg'),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  // const SizedBox(height: 20),
-
                   // Name and Tagline
-                  FutureBuilder(
-                    future: _getName(), // Mock name retrieval
+                  FutureBuilder<String>(
+                    future: _getName(),
                     builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator(); // Loading state
+                      }
                       return Column(
                         children: [
                           Text(
@@ -116,32 +121,39 @@ class ProfileScreen extends StatelessWidget {
                     icon: Icons.person_outline,
                     title: 'Personal Information',
                     onTap: () {
-                      // Navigate to personal information screen (just a placeholder)
+                      Get.to(PersonalInformation());
                     },
                   ),
                   _buildMenuItem(
                     icon: Icons.school_outlined,
                     title: 'My Courses',
                     onTap: () {
-                      // Navigate to My Courses screen (just a placeholder)
+                      Get.to(MyCoursesScreen());
                     },
                   ),
                   _buildMenuItem(
                     icon: Icons.settings_outlined,
                     title: 'Settings',
                     onTap: () {
-                      // Navigate to settings screen (just a placeholder)
+                      Get.to(Settings());
                     },
                   ),
                   _buildMenuItem(
                     icon: Icons.logout,
                     title: 'Logout',
-                    onTap: () {
-                      // Handle logout logic here
-                      print('User logged out');
+                    onTap: () async {
+                      await AuthService.logout();
+                      print('User logged out successfully.');
                     },
                     isLogout: true,
                   ),
+                  _buildMenuItem(
+                      icon: Icons.delete_outline,
+                      title: 'Delete Your Account',
+                      onTap: () {
+                        _showDeleteAccountDialog(context);
+                      },
+                      isDelete: true),
                 ],
               ),
             ),
@@ -154,22 +166,19 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem({
-    required IconData icon,
-    required String title,
-    required VoidCallback onTap,
-    bool isLogout = false,
-  }) {
+  Widget _buildMenuItem(
+      {required IconData icon,
+      required String title,
+      required VoidCallback onTap,
+      bool isLogout = false,
+      bool isDelete = false}) {
     return InkWell(
       onTap: () async {
-        // If this is the logout item, perform logout logic
         if (isLogout) {
-          await AuthService
-              .logout(); // Clear the session and navigate to login screen
+          await AuthService.logout(); // Logout logic
           print('User logged out successfully.');
         } else {
-          // Handle other actions if necessary
-          onTap();
+          onTap(); // Execute the provided onTap function
         }
       },
       child: Container(
@@ -187,14 +196,14 @@ class ProfileScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: isLogout
+                color: isLogout || isDelete
                     ? Colors.red.withOpacity(0.1)
                     : Colors.blue.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(
                 icon,
-                color: isLogout ? Colors.red : Colors.blue,
+                color: isLogout || isDelete ? Colors.red : Colors.blue,
                 size: 20,
               ),
             ),
@@ -203,7 +212,7 @@ class ProfileScreen extends StatelessWidget {
               child: Text(
                 title,
                 style: TextStyle(
-                  color: isLogout ? Colors.red : Colors.black87,
+                  color: isLogout || isDelete ? Colors.red : Colors.black87,
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),
@@ -224,13 +233,39 @@ class ProfileScreen extends StatelessWidget {
     // Simulate a delay like fetching data from a backend or database
     await Future.delayed(const Duration(seconds: 2));
 
-    // Get SharedPreferences instance
     SharedPreferences pref = await SharedPreferences.getInstance();
-
-    // Retrieve the saved user name (if exists), default to empty string if not found
-    String? userName = pref.getString('fullName') ??
-        'Guest'; // Default to 'Guest' if no name is found
-
+    String? userName = pref.getString('fullName') ?? 'Guest';
     return userName;
   }
+
+  void _showDeleteAccountDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Delete Account'),
+          content: const Text(
+              'Are you sure you want to delete your account? This action is irreversible.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () async {
+                await AuthService.deleteAccount();
+                Navigator.of(context).pop();
+                Get.offAllNamed('/login');
+              },
+              child: const Text('Delete', style: TextStyle(color: Colors.red)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  
 }

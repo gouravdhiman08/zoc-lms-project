@@ -82,7 +82,7 @@ class HomeAppBar extends StatelessWidget {
 class AuthHelper {
   static Future<String?> getName() async {
     // Simulate a delay like fetching data from a backend or database
-    await Future.delayed(const Duration(seconds: 2));
+    // await Future.delayed(const Duration(seconds: 2));
 
     // Get SharedPreferences instance
     SharedPreferences pref = await SharedPreferences.getInstance();

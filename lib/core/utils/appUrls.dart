@@ -15,5 +15,6 @@ class AppUrls {
     static Uri fetchlive = Uri.parse('$apiUrl/api/videos/get-live');
     static Uri sliderimage = Uri.parse('$apiUrl/api/slider-images');
     static Uri logout = Uri.parse('$apiUrl/api/auth/logout');
+    static Uri deleteAccount = Uri.parse('$apiUrl/api/students');
 
 }

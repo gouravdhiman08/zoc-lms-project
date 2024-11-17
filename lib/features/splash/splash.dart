@@ -36,7 +36,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
 
     // Trigger navigation after 3 seconds
     Future.delayed(const Duration(seconds: 3), () {
-      Get.offAllNamed('/signup'); // Navigate to the sign-up screen
+      Get.offAllNamed('/login'); // Navigate to the sign-up screen
     });
   }
 

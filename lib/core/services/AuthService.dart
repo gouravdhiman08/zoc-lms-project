@@ -108,7 +108,7 @@ class AuthService {
 // FOR LOGOUT
 
   static Future<void> logout() async {
-      final pref = await SharedPreferences.getInstance();
+    final pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
     final response = await http.post(
       AppUrls.logout,
@@ -133,16 +133,40 @@ class AuthService {
       await pref.remove('isSubscribed');
       await pref.remove('isVerified');
 
-      // Optionally, make a request to the backend to invalidate the session/token
-      // await http.post(AppUrls.logout, headers: {
-      //   'Authorization': 'Bearer ${pref.getString('token')}',
-      // });
-
-      // After logout, navigate to the login screen
-      Get.offAllNamed(
-          '/login'); // Replace '/login' with the route to your login screen
+      Get.offAllNamed('/login');
     } else {
       print('Failed to logout');
+    }
+  }
+
+  static Future<void> deleteAccount() async {
+    final pref = await SharedPreferences.getInstance();
+    final token = pref.getString('token');
+    final id = pref.getString("userId");
+    final response = await http.delete(
+      Uri.parse(AppUrls.deleteAccount.toString() + "/$id"),
+      headers: {
+        'Content-Type': 'application/json', // Set header to application/json
+        ...RequestHelpers.header(), // If you have other common headers
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      print('Account deleted successfully');
+      // Clear the token and user data from SharedPreferences
+      await pref.remove('token');
+      await pref.remove('userId');
+      await pref.remove('fullName');
+      await pref.remove('email');
+      await pref.remove('phoneNumber');
+      await pref.remove('gender');
+      await pref.remove('isSubscribed');
+      await pref.remove('isVerified');
+
+      Get.offAllNamed('/login');
+    } else {
+      print('Failed to delete account');
     }
   }
 }

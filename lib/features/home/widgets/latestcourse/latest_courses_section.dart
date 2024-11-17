@@ -5,6 +5,7 @@ import 'package:zoc_lms_project/core/utils/colors.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:zoc_lms_project/features/checkout/CheckoutScreen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:zoc_lms_project/features/home/widgets/viewall.dart';
 
 class LatestCoursesSection extends StatelessWidget {
   const LatestCoursesSection({super.key});
@@ -28,8 +29,7 @@ class LatestCoursesSection extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                // Implement the "View All" button functionality
-                // e.g., navigate to the course listing screen
+                Get.to(ViewAll());
               },
               child: Text(
                 'View All',

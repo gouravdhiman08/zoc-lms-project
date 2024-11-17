@@ -7,7 +7,6 @@ import 'package:zoc_lms_project/features/home/widgets/latestcourse/latest_course
 import 'package:zoc_lms_project/features/splash/splash.dart';
 
 class AppRoutes {
-  // Define the route paths
   static const String splash = '/splash';
   static const String signup = '/signup';
   static const String login = '/login';
@@ -15,39 +14,31 @@ class AppRoutes {
   static const String courseDetails = '/courseDetails';
   static const String profile = '/profile';
 
-  // Define the GetPage list for GetX routing
   static List<GetPage> getPages = [
-    // Splash Screen Route
     GetPage(
       name: splash,
       page: () => const Splash(),
     ),
-
-    // Signup Screen Route
+    GetPage(
+      name: login,
+      page: () => const Login(),
+    ),
     GetPage(
       name: signup,
       page: () => const Signup(),
     ),
 
-    // Login Screen Route
-    GetPage(
-      name: login,
-      page: () => const Login(),
-    ),
 
-    // Home Screen Route
     GetPage(
       name: home,
       page: () => const BottomNavBarExample(),
     ),
 
-    // Course Details Screen Route (You need to create this screen)
     GetPage(
       name: courseDetails,
       page: () => const LatestCoursesSection(),
     ),
 
-    // Profile Screen Route (You need to create this screen)
     GetPage(
       name: profile,
       page: () => const ProfileScreen(),

@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       title: 'Agriculture with Arjun',
-      initialRoute: isLoggedIn ? AppRoutes.home : AppRoutes.login,
+      initialRoute: isLoggedIn ? AppRoutes.home : AppRoutes.splash,
       getPages: AppRoutes.getPages,
     );
   }

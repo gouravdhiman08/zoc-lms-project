@@ -1,4 +1,3 @@
-// lib/features/authentication/login/widgets/buildPrimaryButton.dart
 import 'package:flutter/material.dart';
 
 class BuildPrimaryButton extends StatelessWidget {

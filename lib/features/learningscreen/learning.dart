@@ -72,20 +72,7 @@ class _LearningScreenState extends State<LearningScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // if (course['thumbnailUrl'] != null)
-            //   ClipRRect(
-            //     borderRadius: BorderRadius.circular(8),
-            //     child: CachedNetworkImage(
-            //       imageUrl: course['thumbnailUrl'],
-            //       height: 200,
-            //       width: double.infinity,
-            //       fit: BoxFit.cover,
-            //       placeholder: (context, url) => Center(
-            //         child: CircularProgressIndicator(),
-            //       ),
-            //       errorWidget: (context, url, error) => Icon(Icons.error),
-            //     ),
-            //   ),
+
             SizedBox(height: 16),
             Text(
               course['title'] ?? 'No Title',
@@ -110,24 +97,6 @@ class _LearningScreenState extends State<LearningScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        // _buildStatItem(
-        //   Icons.attach_money,
-        //   course['cost'] != null ? '₹${course['cost']}' : 'Free',
-        //   'Cost',
-        // ),
-        // _buildStatItem(
-        //   Icons.video_library,
-        //   '${(course['videos'] as List?)?.length ?? 0}',
-        //   'Videos',
-        // ),
-        // _buildStatItem(
-        //   Icons.calendar_today,
-        //   // DateFormat('MMM d, y').format(
-        //   //   DateTime.parse(course['createdAt'] ?? DateTime.now().toIso8601String()),
-        //   // ),
-        //   "jdksfhjk",
-        //   'Created',
-        // ),
       ],
     );
   }
@@ -155,13 +124,7 @@ class _LearningScreenState extends State<LearningScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Padding(
-          //   padding: const EdgeInsets.all(16.0),
-          //   child: Text(
-          //     'Course Content',
-          //     style: Theme.of(context).textTheme.titleLarge,
-          //   ),
-          // ),
+
           ListView.separated(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
@@ -205,12 +168,7 @@ class _LearningScreenState extends State<LearningScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Course Details'),
-        // actions: [
-        //   IconButton(
-        //     icon: Icon(Icons.delete),
-        //     onPressed: () => _showDeleteConfirmationDialog(context),
-        //   ),
-        // ],
+
       ),
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
@@ -253,7 +211,6 @@ class _LearningScreenState extends State<LearningScreen> {
                   child: ListView(
                     padding: EdgeInsets.all(16),
                     children: [
-                      // _buildCourseHeader(course),
 
                       ElevatedButton(
                           onPressed: () async {
@@ -264,7 +221,6 @@ class _LearningScreenState extends State<LearningScreen> {
                                 .fetchLiveVideo(widget.courseId);
 
                             if (liveClassController.error.isEmpty) {
-                              // Only navigate if there are no errors
 
                               _launchURL(
                                   liveClassController.video.value?.url ?? '');
