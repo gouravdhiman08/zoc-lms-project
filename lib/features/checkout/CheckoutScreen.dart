@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:zoc_lms_project/core/models/course_model.dart';
 import 'package:zoc_lms_project/core/utils/colors.dart';
 import 'package:zoc_lms_project/features/checkout/widgets/custom_card.dart';
-
 
 class CheckoutScreen extends StatelessWidget {
   final CourseModel data;
@@ -95,6 +93,27 @@ class CheckoutScreen extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     // Handle buy now action, navigate to payment screen or checkout logic
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Coming Soon',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          content: const Text(
+                              'This feature is coming soon. We are working hard to bring it to you as soon as possible.',
+                              style: TextStyle(fontSize: 16)),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('OK',
+                                  style: TextStyle(color: Colors.blueAccent)),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blueAccent,
