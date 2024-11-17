@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:zoc_lms_project/core/data/sample_courses_data.dart';
 import 'package:zoc_lms_project/core/utils/colors.dart';
 import 'package:zoc_lms_project/features/home/widgets/appbar/home_app_bar.dart';
 import 'package:zoc_lms_project/features/home/widgets/latestcourse/latest_courses_section.dart';
@@ -10,7 +9,6 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -41,7 +39,12 @@ class Home extends StatelessWidget {
                     const SliderSection(),
                     // LatestCoursesSection(
                     //     courses: courses), // Pass the courses list here
-                    LatestCoursesSection()
+                    FutureBuilder(
+                      future: Future.delayed(Duration(seconds: 2)),
+                      builder: (context, snapshot) {
+                        return LatestCoursesSection();
+                      },
+                    )
                   ],
                 ),
               ),

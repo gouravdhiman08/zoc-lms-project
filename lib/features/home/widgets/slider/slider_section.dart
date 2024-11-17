@@ -2,31 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:zoc_lms_project/core/controller/slider_controller.dart';
 import 'package:zoc_lms_project/core/utils/colors.dart';
-
-class SliderController extends GetxController {
-  var isLoading = true.obs;
-  var selectedSliderIndex = 0.obs;
-  var sliders = <String>[];
-
-  @override
-  void onInit() {
-    super.onInit();
-    // Simulating a network request for sliders
-    Future.delayed(const Duration(seconds: 2), () {
-      sliders.addAll([
-        'https://plus.unsplash.com/premium_photo-1674641194949-e154719cdc02?fm=jpg&q=60&w=3000',
-        'https://plus.unsplash.com/premium_photo-1674641194949-e154719cdc02?fm=jpg&q=60&w=3000',
-        'https://plus.unsplash.com/premium_photo-1674641194949-e154719cdc02?fm=jpg&q=60&w=3000',
-      ]);
-      isLoading.value = false;
-    });
-  }
-
-  void changeSliderIndex(int index) {
-    selectedSliderIndex.value = index;
-  }
-}
 
 class SliderSection extends StatelessWidget {
   const SliderSection({super.key});
@@ -110,13 +87,13 @@ class SliderSection extends StatelessWidget {
                   enlargeCenterPage: true,
                   viewportFraction: 1.0,
                 ),
-                items: sliderController.sliders.map((sliderImage) {
+                items: sliderController.sliders.map((slider) {
                   return Builder(
                     builder: (BuildContext context) {
                       return ClipRRect(
                         borderRadius: BorderRadius.circular(15),
                         child: Image.network(
-                          sliderImage,
+                          slider.url, // Corrected to use slider.image
                           fit: BoxFit.cover,
                           width: size.width * 0.90,
                           height: containerHeight,

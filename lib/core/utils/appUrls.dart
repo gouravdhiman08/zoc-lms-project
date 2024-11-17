@@ -12,4 +12,8 @@ class AppUrls {
   static Uri resendverifymail =
       Uri.parse('$apiUrl/api/students/resend-verification-mail');
   static Uri learningdetail = Uri.parse('$apiUrl/api/courses');
+    static Uri fetchlive = Uri.parse('$apiUrl/api/videos/get-live');
+    static Uri sliderimage = Uri.parse('$apiUrl/api/slider-images');
+    static Uri logout = Uri.parse('$apiUrl/api/auth/logout');
+
 }

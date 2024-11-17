@@ -147,7 +147,7 @@ class Login extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           // Navigate to the sign up screen
-                          Get.toNamed('/sign-up');
+                          Get.toNamed('/signup');
                         },
                         child: const Text(
                           "Sign Up",

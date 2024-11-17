@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:zoc_lms_project/core/controller/live_class_controller.dart';
 import 'package:zoc_lms_project/core/services/enrolled_course_service.dart';
 import 'package:zoc_lms_project/features/liveScreen/liveview.dart';
 
@@ -255,8 +256,26 @@ class _LearningScreenState extends State<LearningScreen> {
                       // _buildCourseHeader(course),
 
                       ElevatedButton(
-                          onPressed: () {
-                            // Get.to(LiveClassPage(courseId:widget.courseId));
+                          onPressed: () async {
+                            final liveClassController =
+                                Get.put(LiveClassController());
+
+                            await liveClassController
+                                .fetchLiveVideo(widget.courseId);
+
+                            if (liveClassController.error.isEmpty) {
+                              // Only navigate if there are no errors
+
+                              _launchURL(
+                                  liveClassController.video.value?.url ?? '');
+                            } else {
+                              // Show an error message
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content:
+                                        Text(liveClassController.error.value)),
+                              );
+                            }
                           },
                           child: Text(
                             "Live Class",
@@ -289,23 +308,14 @@ class _LearningScreenState extends State<LearningScreen> {
     String videoId;
 
     if (url.contains('youtube.com/watch?v=')) {
-      // Extract video ID from regular YouTube URL
-      videoId = url.split('v=')[1].split(
-          '&')[0]; // Handle possible additional params after the video ID
+      videoId = url.split('v=')[1].split('&')[0];
     } else if (url.contains('youtu.be/')) {
-      // Extract video ID from shortened YouTube URL
       videoId = url.split('youtu.be/')[1];
     } else {
       print('Invalid URL format');
-      return;
+      return; // Early return if the URL format is invalid
     }
-
-    // Construct the full YouTube URL
-    String fullUrl = '$videoId';
-    print('Launching URL: $fullUrl');
-
     // Navigate to the LiveView page, passing the video ID
-    // Get.to(() => LiveView(videoId: videoId));
     Get.to(() => LiveView(videoId: videoId));
   }
 

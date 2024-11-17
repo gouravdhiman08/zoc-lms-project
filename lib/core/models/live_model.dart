@@ -1,13 +1,13 @@
 import 'package:zoc_lms_project/core/models/course_model.dart';
 
 class LiveVideo {
-  String id;
-  String title;
-  String url;
-  String courseId;
-  CourseModel? courseDetails;
-  String description;
-  bool isLive;
+  final String id;
+  final String title;
+  final String url;
+  final String courseId;
+  final CourseModel? courseDetails;
+  final String description;
+  final bool isLive;
 
   LiveVideo({
     required this.id,
@@ -27,13 +27,14 @@ class LiveVideo {
       // Handle different courseId formats
       if (json['courseId'] != null) {
         if (json['courseId'] is String) {
-          courseId = json['courseId'];
+          courseId = json['courseId'] as String;
         } else if (json['courseId'] is Map<String, dynamic>) {
           var courseData = json['courseId'] as Map<String, dynamic>;
           courseId = courseData['_id'] ?? '';
           try {
             courseDetails = CourseModel.fromJson(courseData);
           } catch (e) {
+            // Log the error for debugging purposes
             print("Error parsing course details: $e");
           }
         }

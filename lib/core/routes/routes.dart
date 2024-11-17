@@ -1,11 +1,8 @@
 import 'package:get/get.dart';
-import 'package:zoc_lms_project/core/data/sample_courses_data.dart';
 import 'package:zoc_lms_project/core/global/bottombar/bottombar.dart';
 import 'package:zoc_lms_project/features/ProfileScreen/ProfileScreen.dart';
 import 'package:zoc_lms_project/features/authentication/login/login.dart';
 import 'package:zoc_lms_project/features/authentication/signup/signup.dart';
-import 'package:zoc_lms_project/features/home/home.dart';
-import 'package:zoc_lms_project/features/home/widgets/appbar/home_app_bar.dart';
 import 'package:zoc_lms_project/features/home/widgets/latestcourse/latest_courses_section.dart';
 import 'package:zoc_lms_project/features/splash/splash.dart';
 
@@ -29,8 +26,7 @@ class AppRoutes {
     // Signup Screen Route
     GetPage(
       name: signup,
-      page: () =>  const Signup(),
-      // page: () => BottomNavBarExample(),
+      page: () => const Signup(),
     ),
 
     // Login Screen Route
@@ -48,8 +44,7 @@ class AppRoutes {
     // Course Details Screen Route (You need to create this screen)
     GetPage(
       name: courseDetails,
-      // page: () => LatestCoursesSection(courses: courses), // Pass courses data here
-      page: () => LatestCoursesSection(),
+      page: () => const LatestCoursesSection(),
     ),
 
     // Profile Screen Route (You need to create this screen)
@@ -57,11 +52,5 @@ class AppRoutes {
       name: profile,
       page: () => const ProfileScreen(),
     ),
-
-    // // Bottom Nav Bar Screen (You already have this setup)
-    // GetPage(
-    //   name: '/bottomBar',
-    //   page: () => BottomNavBarExample(),
-    // ),
   ];
 }

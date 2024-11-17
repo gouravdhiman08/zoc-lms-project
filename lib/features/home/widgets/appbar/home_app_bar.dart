@@ -66,7 +66,7 @@ class HomeAppBar extends StatelessWidget {
                 radius: 20, // Adjust radius as per your needs
                 child: Icon(
                   Icons
-                      .person, // Replace with an appropriate icon for the avatar
+                      .person_2_outlined, // Replace with an appropriate icon for the avatar
                   color: Colors.blue, // Change color if needed
                 ),
               ),

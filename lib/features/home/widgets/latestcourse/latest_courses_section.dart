@@ -4,6 +4,7 @@ import 'package:zoc_lms_project/core/controller/home_controller.dart';
 import 'package:zoc_lms_project/core/utils/colors.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:zoc_lms_project/features/checkout/CheckoutScreen.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LatestCoursesSection extends StatelessWidget {
   const LatestCoursesSection({super.key});
@@ -24,7 +25,6 @@ class LatestCoursesSection extends StatelessWidget {
           children: [
             Text(
               'Latest Courses',
-              
             ),
             GestureDetector(
               onTap: () {
@@ -33,7 +33,6 @@ class LatestCoursesSection extends StatelessWidget {
               },
               child: Text(
                 'View All',
-               
               ),
             ),
           ],
@@ -44,7 +43,12 @@ class LatestCoursesSection extends StatelessWidget {
         Obx(() {
           if (controller.featuredCourses.isEmpty) {
             // Display a loading indicator while courses are being fetched
-            return const Center(child: CircularProgressIndicator());
+            // return const Center(child: CircularProgressIndicator());
+            return SpinKitFadingCircle(
+              // Modern loading spinner
+              color: AppColors.primary, // Set color to your theme
+              size: 50.0, // Adjust size of the spinner
+            );
           }
 
           return AlignedGridView.count(

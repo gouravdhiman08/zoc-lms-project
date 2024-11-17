@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zoc_lms_project/core/global/companysection/company_section.dart';
 import 'package:zoc_lms_project/core/services/AuthService.dart';
+import 'package:zoc_lms_project/core/utils/colors.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -18,7 +19,7 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.blue, // Primary color
+        backgroundColor: AppColors.primary, // Primary color
         elevation: 0,
       ),
       body: SingleChildScrollView(
