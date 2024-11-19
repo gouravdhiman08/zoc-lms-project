@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   String? token = prefs.getString('token');
 
   runApp(MyApp(isLoggedIn: token != null && token.isNotEmpty));

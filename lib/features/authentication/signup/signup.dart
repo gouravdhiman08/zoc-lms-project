@@ -4,14 +4,16 @@ import 'package:zoc_lms_project/core/controller/signup_controller.dart';
 import 'package:zoc_lms_project/core/global/custom_button.dart';
 import 'package:zoc_lms_project/core/helpers/dropdown_form.dart';
 import 'package:zoc_lms_project/core/helpers/form_helpers.dart';
+import 'package:zoc_lms_project/core/utils/colors.dart';
 
 class Signup extends StatelessWidget {
-  const Signup ({super.key});
+  const Signup({super.key});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SignupControllers());
     return Scaffold(
+      backgroundColor: Colors.grey[100], // Added background color
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -29,11 +31,13 @@ class Signup extends StatelessWidget {
                     children: [
                       Text(
                         'Register Now!',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 28),
                       ),
                       Text(
                         'Fill the details below',
-                        style: TextStyle(color: Colors.black.withOpacity(.5)),
+                        style: TextStyle(
+                            color: Colors.black.withOpacity(.5), fontSize: 16),
                       ),
                     ],
                   ),
@@ -165,7 +169,9 @@ class Signup extends StatelessWidget {
                                   InkWell(
                                     child: Text(
                                       "Log In",
-                                      style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600),
+                                      style: TextStyle(
+                                          color: AppColors.primary,
+                                          fontWeight: FontWeight.w600),
                                     ),
                                     onTap: () => Get.toNamed('/login'),
                                   ),

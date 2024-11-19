@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // Import GetX for state management
 import 'package:zoc_lms_project/core/controller/login_controller.dart';
-import 'package:zoc_lms_project/features/authentication/login/widgets/buildPrimaryButton.dart';
+import 'package:zoc_lms_project/core/utils/colors.dart';
 import 'package:zoc_lms_project/features/authentication/login/widgets/buildTextField.dart';
 
 class Login extends StatelessWidget {
@@ -20,7 +20,7 @@ class Login extends StatelessWidget {
           'Login Screen',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: AppColors.primary,
         elevation: 2,
         centerTitle: true,
       ),
@@ -43,7 +43,7 @@ class Login extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: Colors.blueAccent,
+                    color: Color.fromARGB(255, 10, 58, 250),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -101,7 +101,7 @@ class Login extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () {
                       // Navigate to forgot password screen
-                      Get.toNamed('/forgot-password');
+                      // Get.toNamed('/forgot-password');
                     },
                     child: const Text(
                       'Forgot password?',
@@ -117,16 +117,57 @@ class Login extends StatelessWidget {
                 // Login Button with improved accessibility and padding
                 Obx(() {
                   return loginController.isLoading.value
-                      ? BuildPrimaryButton(
-                          text: 'Logging In...',
+                      ? ElevatedButton(
                           onPressed: () {}, // Disable the button while loading
-                          isLoading: true,  // Handle loading state in button
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            backgroundColor: AppColors.primary, // Button color
+                            textStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          child: const SizedBox(
+                            width:
+                                double.infinity, // Make the button full width
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                         )
-                      : BuildPrimaryButton(
-                          text: 'Log In',
+                      : ElevatedButton(
                           onPressed: () {
-                            loginController.login(context); // Call the login function
+                            loginController
+                                .login(context); // Call the login function
                           },
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            backgroundColor: AppColors.primary, // Button color
+                            textStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          child: const SizedBox(
+                            width:
+                                double.infinity, // Make the button full width
+                            child: Center(
+                              child: Text(
+                                'Log In',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
                         );
                 }),
                 const SizedBox(height: 20),

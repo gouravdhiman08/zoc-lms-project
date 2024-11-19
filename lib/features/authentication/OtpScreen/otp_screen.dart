@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zoc_lms_project/core/controller/otp_controller.dart';
 import 'package:zoc_lms_project/core/services/otp_service.dart';
+import 'package:zoc_lms_project/core/utils/colors.dart';
 import 'package:zoc_lms_project/features/authentication/login/login.dart';
 
 class OtpScreen extends StatelessWidget {
@@ -15,7 +16,6 @@ class OtpScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Column(
@@ -166,8 +166,8 @@ class OtpScreen extends StatelessWidget {
                             }
                           },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      minimumSize: const Size(double.infinity, 55),
+                      backgroundColor: AppColors.primary,
+                      minimumSize: const Size(double.infinity, 44),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
@@ -175,8 +175,8 @@ class OtpScreen extends StatelessWidget {
                     ),
                     child: otpController.isLoading.value
                         ? const SizedBox(
-                            width: 24,
-                            height: 24,
+                            width: 14,
+                            height: 20,
                             child: CircularProgressIndicator(
                               color: Colors.white,
                               strokeWidth: 2,
@@ -185,9 +185,9 @@ class OtpScreen extends StatelessWidget {
                         : const Text(
                             'Verify',
                             style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           ),
                   );
                 }),
@@ -208,7 +208,7 @@ class OtpScreen extends StatelessWidget {
                         return Text(
                           'Resend in ${otpController.resendTime.value}s',
                           style: TextStyle(
-                            color: Colors.blue.shade300,
+                            color: AppColors.primary,
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
                           ),
@@ -221,7 +221,7 @@ class OtpScreen extends StatelessWidget {
                         child: Text(
                           'Resend',
                           style: TextStyle(
-                            color: Colors.blue.shade700,
+                            color: AppColors.primary,
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
                           ),

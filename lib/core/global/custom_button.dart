@@ -28,28 +28,34 @@ class CustomButton extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-          child: isLoading == true ? Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(
-                  color: Colors.white,
+          child: isLoading == true
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      buttonTitle,
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                )
+              : Center(
+                  child: Text(
+                    buttonTitle,
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Text(
-                buttonTitle,
-              )
-            ],
-          ) : Center(
-            child: Text(
-              buttonTitle,
-            ),
-          ),
         ),
       ),
     );
