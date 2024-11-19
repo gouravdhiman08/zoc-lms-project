@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "154138166693",
+    "firebase_url": "https://classify-x-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "classify-x",
+    "storage_bucket": "classify-x.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154138166693:android:4251d12a5846eb6755d44c",
+        "android_client_info": {
+          "package_name": "com.example.zoc_lms_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZPgL4zZE-lqDJT8z7PCCF8sKamvBH-bs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

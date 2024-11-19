@@ -72,7 +72,6 @@ class _LearningScreenState extends State<LearningScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             SizedBox(height: 16),
             Text(
               course['title'] ?? 'No Title',
@@ -96,8 +95,7 @@ class _LearningScreenState extends State<LearningScreen> {
   Widget _buildCourseStats(Map<String, dynamic> course) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-      ],
+      children: [],
     );
   }
 
@@ -124,7 +122,6 @@ class _LearningScreenState extends State<LearningScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           ListView.separated(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
@@ -168,7 +165,6 @@ class _LearningScreenState extends State<LearningScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Course Details'),
-
       ),
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
@@ -211,7 +207,6 @@ class _LearningScreenState extends State<LearningScreen> {
                   child: ListView(
                     padding: EdgeInsets.all(16),
                     children: [
-
                       ElevatedButton(
                           onPressed: () async {
                             final liveClassController =
@@ -221,7 +216,6 @@ class _LearningScreenState extends State<LearningScreen> {
                                 .fetchLiveVideo(widget.courseId);
 
                             if (liveClassController.error.isEmpty) {
-
                               _launchURL(
                                   liveClassController.video.value?.url ?? '');
                             } else {
@@ -273,36 +267,5 @@ class _LearningScreenState extends State<LearningScreen> {
     }
     // Navigate to the LiveView page, passing the video ID
     Get.to(() => LiveView(videoId: videoId));
-  }
-
-  Future<void> _showDeleteConfirmationDialog(BuildContext context) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Delete Course'),
-          content: Text(
-            'Are you sure you want to delete this course? This action cannot be undone.',
-          ),
-          actions: [
-            TextButton(
-              child: Text('Cancel'),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.red,
-              ),
-              child: Text('Delete'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                _handleDelete();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 }

@@ -1,15 +1,31 @@
 class Comment {
-  final String text;
-  final String author;
-  final String avatar;
-  final DateTime timestamp;
-  final bool isHost;
+  final String id;
+  final String user;
+  final String content;
+  final String timestamp;
 
   Comment({
-    required this.text,
-    required this.author,
-    this.avatar = '',
+    required this.id,
+    required this.user,
+    required this.content,
     required this.timestamp,
-    this.isHost = false,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'user': user,
+      'content': content,
+      'timestamp': timestamp,
+    };
+  }
+
+  factory Comment.fromMap(String key, Map<dynamic, dynamic> map) {
+    return Comment(
+      id: key,
+      user: map['user'] ?? '',
+      content: map['content'] ?? '',
+      timestamp: map['timestamp'] ?? '',
+    );
+  }
 }
